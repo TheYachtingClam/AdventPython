@@ -1,5 +1,25 @@
+def increment_lowercase_string(input):
+    if len(input) is 0:
+        return ''
+
+    lastChar = input[-1:]
+    if lastChar is 'z':
+        return increment_lowercase_string(input[0:-1]) + 'a'
+    else:
+        return input[0:-1] + chr(ord(lastChar) + 1)
+
+
 def next_password(last_password):
-    pass
+    new_password = last_password
+    counter = 0
+    while True:
+        counter += 1
+        if counter % 1000000 is 0:
+            print(new_password)
+        if check_rules(new_password):
+            return new_password
+        else:
+            new_password = increment_lowercase_string(new_password)
 
 
 def straight_rule(password):
@@ -63,9 +83,7 @@ def check_rules(password):
 def main():
     f = open("testInput.txt")
 
-    print(str(check_rules("ghjaabcc")))
-    for line in f:
-        print(next_password(line))
+    print(str(next_password("cqjxxzaa")))
 
 
 if __name__ == "__main__":
